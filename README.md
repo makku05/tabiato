@@ -92,5 +92,6 @@ notabiなども旅行後の記録を残せますが、たびあとは「Exif情�
 * importmap-rails
 * Google Maps JavaScript API (またはMapLibre GL JS)
 * Active Storage, mini_magick, exifr (Exif解析用)
+* AWS S3
 * Devise
 * Render / Heroku
