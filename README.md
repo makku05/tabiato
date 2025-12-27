@@ -97,7 +97,7 @@ notabiなども旅行後の記録を残せますが、たびあとは「Exif情�
 * Render / Heroku
 
 ## ER図
-[![Image from Gyazo](https://i.gyazo.com/c733a7af9da7df0f8bb1a77dcce34874.png)](https://gyazo.com/c733a7af9da7df0f8bb1a77dcce34874)
+[![Image from Gyazo](https://i.gyazo.com/d103531e547e52383ca66d71c83b933d.png)](https://gyazo.com/d103531e547e52383ca66d71c83b933d)
 
 ## 画面遷移図
 
