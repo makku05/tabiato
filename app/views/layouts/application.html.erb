@@ -19,7 +19,22 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <header style="padding: 10px; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between;">
+      <div class="logo">
+        <%= link_to "Tabiato", root_path, style: "font-weight: bold; text-decoration: none;" %>
+      </div>
+      
+      <div class="menu">
+        <% if user_signed_in? %>
+          <span><%= current_user.email %> さん</span>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, style: "margin-left: 10px;" %>
+        <% else %>
+          <%= link_to "新規登録", new_user_registration_path, style: "margin-right: 10px;" %>
+          <%= link_to "ログイン", new_user_session_path %>
+        <% end %>
+      </div>
+    </header>
+      <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
   </body>

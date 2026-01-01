@@ -1,0 +1,47 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認用）"
+        current_password: "現在のパスワード"
+        remember_me: "ログインしたままにする"
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
+
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      taken: "はすでに使用されています"
+      too_short: "は%{count}文字以上に設定してください"
+      too_long: "は%{count}文字以下に設定してください"
+      invalid: "は不正な値です"
+      confirmation: "が確認用と一致しません"
+      not_saved:
+        one: "1件のエラーが発生しました"
+        other: "%{count}件のエラーが発生しました"
+  
+  users:
+    registrations:
+      new:
+        title: "新規登録"
+        submit: "登録する"
+        password_hint: "(%{num}文字以上)"
+        not_yet_member: "アカウントをお持ちでない方はこちら"
+        forgot_your_password: "パスワードをお忘れの方はこちら"
+      edit:
+        title: "アカウント編集"
+        submit: "更新する"
+        leave_blank: "(変更しない場合は空欄)"
+        need_current_password: "(変更を確認するため入力してください)"
+        cancel_title: "アカウント削除"
+        cancel_button: "アカウントを削除する"
+        back: "戻る"
+    sessions:
+      new:
+        title: "ログイン"
+        submit: "ログインする"
+        already_member: "アカウントをお持ちの方はこちら"
