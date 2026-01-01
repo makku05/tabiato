@@ -1,0 +1,42 @@
+<%= render "devise/shared/error_messages", resource: resource %>
+
+<h2><%= t('users.registrations.edit.title') %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %> <i><%= t('users.registrations.edit.leave_blank') %></i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= t('users.registrations.new.password_hint', num: @minimum_password_length) %></em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_password %> <i><%= t('users.registrations.edit.need_current_password') %></i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('users.registrations.edit.submit') %>
+  </div>
+<% end %>
+
+<h3><%= t('users.registrations.edit.cancel_title') %></h3>
+
+<div>
+  <%= button_to t('users.registrations.edit.cancel_button'), registration_path(resource_name), data: { confirm: "本当に削除しますか？", turbo_confirm: "本当に削除しますか？" }, method: :delete %>
+</div>
+
+<%= link_to t('users.registrations.edit.back'), :back %>
