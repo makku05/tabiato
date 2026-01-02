@@ -8,12 +8,14 @@
   </div>
 
   <div class="mb-6">
-    <% if @album.image.attached? %>
-      <%= image_tag @album.image, class: "w-full h-auto rounded-lg shadow-md" %>
+    <% if @album.images.attached? %>
+        <% @album.images.each do |image| %>
+            <%= image_tag image, class: "w-full h-auto rounded-lg shadow-md" %>
+        <% end %>
     <% else %>
-      <div class="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
-        No Image
-      </div>
+        <div class="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+            No Image
+        </div>
     <% end %>
   </div>
 
