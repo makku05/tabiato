@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
-  # ログインしていないと見れないように
   before_action :authenticate_user!
+  before_action :set_album, only: %i[show edit update destroy]
 
   def new
     @album = Album.new
@@ -23,12 +23,31 @@ class AlbumsController < ApplicationController
   end
 
   def show
-    @album = Album.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    if @album.update(album_params)
+      redirect_to album_path(@album), notice: "アルバムを更新しました！"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @album.destroy!
+    redirect_to albums_path, notice: "アルバムを削除しました", status: :see_other
   end
 
   private
 
   def album_params
     params.require(:album).permit(:title, :description, :image)
+  end
+
+  def set_album
+    @album = current_user.albums.find(params[:id])
   end
 end
