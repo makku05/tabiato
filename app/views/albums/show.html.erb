@@ -27,10 +27,10 @@
     <%= link_to "一覧に戻る", albums_path, class: "text-gray-600 hover:text-gray-900 underline" %>
 
     <% if current_user.id == @album.user_id %>
-      <div class="space-x-2">
-        <%= link_to "編集する", "#", class: "bg-[#ff8737] text-white px-4 py-2 rounded hover:opacity-80" %>
-        <%= link_to "削除する", "#", class: "bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
-      </div>
+        <div class="space-x-2">
+            <%= link_to "編集する", edit_album_path(@album), class: "bg-[#ff8737] text-white px-4 py-2 rounded hover:opacity-80" %>
+            <%= link_to "削除する", album_path(@album), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
+        </div>
     <% end %>
   </div>
 
