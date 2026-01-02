@@ -62,3 +62,8 @@ gem "tailwindcss-ruby", "3.4.17"
 gem "devise"
 
 gem "minitest", "< 6.0"
+
+gem "aws-sdk-s3", require: false
+
+# 画像のサイズ調整（リサイズ）用
+gem "image_processing", ">= 1.2"
