@@ -1,0 +1,25 @@
+<div class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+  
+  <div class="border-b pb-4 mb-4">
+    <h1 class="text-3xl font-bold text-gray-800"><%= @album.title %></h1>
+    <p class="text-sm text-gray-500 mt-1">
+      作成日: <%= @album.created_at.strftime("%Y年%m月%d日") %>
+    </p>
+  </div>
+
+  <div class="text-gray-700 leading-relaxed mb-8 min-h-[100px]">
+    <%= simple_format(@album.description) %>
+  </div>
+
+  <div class="flex items-center justify-between border-t pt-6">
+    <%= link_to "一覧に戻る", albums_path, class: "text-gray-600 hover:text-gray-900 underline" %>
+
+    <% if current_user.id == @album.user_id %>
+      <div class="space-x-2">
+        <%= link_to "編集する", "#", class: "bg-[#ff8737] text-white px-4 py-2 rounded hover:opacity-80" %>
+        <%= link_to "削除する", "#", class: "bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
