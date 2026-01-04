@@ -29,7 +29,7 @@ class AlbumsController < ApplicationController
               longitude: exif_data&.dig(:longitude)
             )
 
-            photo = spot.photos.build(
+            photo = Photo.new(
               taken_at: exif_data&.dig(:taken_at),
               latitude: exif_data&.dig(:latitude),
               longitude: exif_data&.dig(:longitude),
