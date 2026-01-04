@@ -1,4 +1,4 @@
-require 'exifr/jpeg'
+require "exifr/jpeg"
 
 class ImageAnalyzer
   def self.call(image_file)
