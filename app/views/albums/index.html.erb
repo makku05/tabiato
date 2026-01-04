@@ -6,6 +6,7 @@
 
   <% if @albums.present? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <%#アルバムの一覧を表示する処理 %>
       <% @albums.each do |album| %>
         <div class="bg-white rounded-lg shadow p-4 border">
           <h2 class="text-xl font-bold mb-2"><%= album.title %></h2>

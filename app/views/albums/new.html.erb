@@ -3,6 +3,7 @@
 
   <%= form_with model: @album, class: "space-y-4" do |f| %>
     
+    <%#エラー処理 %>
     <% if @album.errors.any? %>
       <div class="bg-red-50 text-red-500 p-3 rounded">
         <ul>
@@ -19,6 +20,7 @@
     </div>
 
     <div>
+      <%# 画像の追加、複数投稿可能 %>
       <%= f.label :images, "写真を選択", class: "block text-sm font-medium text-gray-700" %>
       <%= f.file_field :images, multiple: true, class: "mt-1 block w-full text-sm text-gray-500
         file:mr-4 file:py-2 file:px-4

@@ -67,3 +67,5 @@ gem "aws-sdk-s3", require: false
 
 # 画像のサイズ調整（リサイズ）用
 gem "image_processing", ">= 1.2"
+
+gem 'exifr'

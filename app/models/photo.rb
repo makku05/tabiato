@@ -1,4 +1,7 @@
 class Photo < ApplicationRecord
-  belongs_to :album_spot
-  # ※ここに後で has_one_attached :image を追記します（今日はまだOK）
+  has_many :album_spot_photos, dependent: :destroy
+  has_many :album_spots, through: :album_spot_photos
+  belongs_to :user
+  belongs_to :album
+  has_one_attached :image
 end
