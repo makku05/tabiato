@@ -8,10 +8,30 @@
   </div>
 
   <div class="mb-6">
-    <% if @album.images.attached? %>
-        <% @album.images.each do |image| %>
-            <%= image_tag image, class: "w-full h-auto rounded-lg shadow-md" %>
+    <%# アルバムにスポットがあるか %>
+    <% if @album.album_spots.present? %>
+        <%# 画像の一覧を表示 %>
+        <% @album.album_spots.each do |spot| %>
+
+          <div class="spot">
+            <h3> <%= spot.spot_name %> </h3>
+
+            <%# 緯度と経度が両方あるときだけ表示する %>
+            <% if spot.latitude.present? && spot.longitude.present? %>
+              <p> 緯度: <%= spot.latitude %> / 経度: <%= spot.longitude %> </p>
+            <% end %>
+
+            <% spot.photos.each do |photo| %>
+              
+              <%= image_tag photo.image, width: 200 %>
+              
+              <p> <%= photo.taken_at %> </p>
+
+            <% end %>
+          </div>
+
         <% end %>
+    <%# 画像がないときの処理 %>
     <% else %>
         <div class="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
             No Image

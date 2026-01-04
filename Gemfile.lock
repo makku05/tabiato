@@ -132,6 +132,7 @@ GEM
     drb (2.2.3)
     erb (6.0.1)
     erubi (1.13.1)
+    exifr (1.5.1)
     ffi (1.17.3-aarch64-linux-gnu)
     ffi (1.17.3-aarch64-linux-musl)
     ffi (1.17.3-arm-linux-gnu)
@@ -385,6 +386,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  exifr
   image_processing (>= 1.2)
   jbuilder
   jsbundling-rails
