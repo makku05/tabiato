@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_album, only: %i[show edit update destroy]
+  before_action :set_album, only: %i[edit update destroy]
 
   def new
     @album = Album.new
@@ -51,11 +51,21 @@ class AlbumsController < ApplicationController
   end
 
   def index
-    # 最新順に並べる
-    @albums = Album.includes(:user).order(created_at: :desc)
+    @albums = Album.includes(:user)
+                    .where(status: :publish)
+                    .or(Album.where(user_id: current_user.id))
+                    .order(created_at: :desc)
   end
 
   def show
+    @album = Album.find(params[:id])
+
+    # 非公開かつ他人だと見れない
+    if @album.unpublish? && @album.user_id != current_user.id
+      redirect_to albums_path, alert: "このアルバムは非公開です"
+      return
+    end
+
     # 撮影時間順に並べ替える
     @album_spots = @album.album_spots.includes(:photos).sort_by do |spot|
       # スポットの写真を撮影日順に並べたときの、一番古い日時を取得
@@ -124,7 +134,7 @@ class AlbumsController < ApplicationController
 
   def album_params
     # 写真を複数枚受け取れるように
-    params.require(:album).permit(:title, :description, images: [])
+    params.require(:album).permit(:title, :description, :status, images: [])
   end
 
   def set_album

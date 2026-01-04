@@ -6,13 +6,32 @@
 
   <% if @albums.present? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <%#アルバムの一覧を表示する処理 %>
       <% @albums.each do |album| %>
-        <div class="bg-white rounded-lg shadow p-4 border">
-          <h2 class="text-xl font-bold mb-2"><%= album.title %></h2>
-          <p class="text-gray-600 text-sm mb-4"><%= album.created_at.strftime("%Y年%m月%d日") %></p>
-          <p class="text-gray-800"><%= truncate(album.description, length: 50) %></p>
-          <%= link_to "詳細を見る", album_path(album), class: "text-indigo-600 hover:text-indigo-800 mt-2 inline-block" %>
+        
+        <%# 非公開なら背景グレー %>
+        <div class="rounded-lg shadow p-4 border relative flex flex-col <%= album.unpublish? ? 'bg-gray-100' : 'bg-white' %>">
+          
+          <%# 非公開の文字入れ %>
+          <% if album.unpublish? %>
+            <span class="absolute top-2 right-2 z-10 bg-gray-500 text-white text-xs px-2 py-1 rounded">非公開</span>
+          <% end %>
+
+          <div class="mb-4 h-40 w-full rounded overflow-hidden bg-gray-200">
+            <% if album.photos.present? %>
+              <%= image_tag album.photos.first.image, class: "w-full h-full object-cover" %>
+            <% else %>
+              <div class="flex items-center justify-center h-full text-gray-400 text-sm">
+                No Image
+              </div>
+            <% end %>
+          </div>
+
+          <h2 class="text-xl font-bold mb-2 pr-8"><%= album.title %></h2>
+          <p class="text-gray-600 text-sm mb-2"><%= album.created_at.strftime("%Y年%m月%d日") %></p>
+          
+          <p class="text-gray-800 text-sm mb-4 flex-grow"><%= truncate(album.description, length: 40) %></p>
+          
+          <%= link_to "詳細を見る", album_path(album), class: "text-indigo-600 hover:text-indigo-800 inline-block mt-auto" %>
         </div>
       <% end %>
     </div>

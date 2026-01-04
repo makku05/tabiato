@@ -1,4 +1,4 @@
-<div class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+<div class="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
   
   <div class="border-b pb-4 mb-4">
     <h1 class="text-3xl font-bold text-gray-800"><%= @album.title %></h1>
@@ -29,14 +29,13 @@
       <h2 class="text-xl font-bold text-gray-800 mb-2">旅のルート</h2>
       
       <%# Stimulusコントローラーを呼び出す %>
-      <div style="height: 400px; width: 100%; border-radius: 0.5rem;"
+      <div style="height: 500px; width: 100%; border-radius: 0.5rem;"
           data-controller="map"
           data-map-api-key-value="<%= ENV['GOOGLE_MAPS_API_KEY'] %>"
           data-map-spots-value="<%= map_data.to_json %>">
       </div>
     </div>
   <% end %>
-  <%# ----------------------------- %>
 
 
   <div class="mb-6">
@@ -45,21 +44,21 @@
         <%# 画像の一覧を表示 %>
         <% @album_spots.each do |spot| %>
 
-          <div class="spot">
-            <h3> <%= spot.spot_name %> </h3>
+          <div class="spot mb-8 border-b pb-4">
 
             <%# 緯度と経度がないときだけ表示する %>
             <% if spot.latitude.blank? && spot.longitude.blank? %>
-              <p> 位置情報がありません </p>
+              <p class="text-sm text-gray-500 mb-2"> 位置情報がありません </p>
             <% end %>
 
-            <% spot.photos.each do |photo| %>
-              
-              <%= image_tag photo.image, width: 200 %>
-              
-              <p> <%= photo.taken_at %> </p>
-
-            <% end %>
+            <div class="flex flex-wrap gap-4">
+              <% spot.photos.each do |photo| %>
+                <div class="flex flex-col">
+                  <%= image_tag photo.image, class: "rounded shadow-sm object-cover", style: "width: 200px; height: 150px;" %>
+                  <p class="text-xs text-gray-500 mt-1"> <%= photo.taken_at&.strftime("%H:%M") %> </p>
+                </div>
+              <% end %>
+            </div>
           </div>
 
         <% end %>
