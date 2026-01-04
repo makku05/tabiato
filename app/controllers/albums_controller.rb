@@ -7,22 +7,21 @@ class AlbumsController < ApplicationController
   end
 
   def create
-    #データから画像だけを取り除く
+    # データから画像だけを取り除く
     @album = current_user.albums.build(album_params.except(:images))
 
     if @album.save
-      #画像が送られてきてるのかのチェック
+      # 画像が送られてきてるのかのチェック
       if params[:album][:images]
         ActiveRecord::Base.transaction do
           # スポット数を数える変数
           spotn = 0
-          #rejectで空のデータを除外
+          # rejectで空のデータを除外
           params[:album][:images].reject(&:blank?).each do |image|
-
             exif_data = ImageAnalyzer.call(image)
             spotn = spotn + 1
 
-            #将来的に写真複数枚でグループ分け予定
+            # 将来的に写真複数枚でグループ分け予定
             spot = @album.album_spots.create(
               spot_name: "スポット" + spotn.to_s,
               latitude: exif_data&.dig(:latitude),
@@ -65,19 +64,18 @@ class AlbumsController < ApplicationController
   def update
     # 画像以外のデータを先に更新
     if @album.update(album_params.except(:images))
-        
+
       # 新しい画像が追加されているかチェック
       if params[:album][:images]
-          
+
         ActiveRecord::Base.transaction do
-          spotn = @album.album_spots.count 
+          spotn = @album.album_spots.count
 
           params[:album][:images].reject(&:blank?).each do |image|
-              
             exif_data = ImageAnalyzer.call(image)
-            
+
             spotn = spotn + 1
-              
+
             spot = @album.album_spots.create!(
               spot_name: "スポット" + spotn.to_s,
               latitude: exif_data&.dig(:latitude),
@@ -91,7 +89,7 @@ class AlbumsController < ApplicationController
               user: current_user,
               album: @album
             )
-              
+
             photo.image.attach(image)
             photo.save!
 
@@ -99,13 +97,13 @@ class AlbumsController < ApplicationController
           end
         end
       end
-        
+
       redirect_to album_path(@album), notice: "アルバムを更新しました！"
     else
       flash.now[:alert] = "アルバムの更新に失敗しました"
       render :edit, status: :unprocessable_entity
-  end
-      
+    end
+
   rescue => e
     flash.now[:alert] = "更新に失敗しました: #{e.message}"
     render :edit, status: :unprocessable_entity
