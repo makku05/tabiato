@@ -1,7 +1,7 @@
-<div class="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+<div class="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md mt-10">
   
   <div class="border-b pb-4 mb-4">
-    <h1 class="text-3xl font-bold text-gray-800"><%= @album.title %></h1>
+    <h1 class="text-2xl font-bold text-gray-800"><%= @album.title %></h1>
     <p class="text-sm text-gray-500 mt-1">
       作成日: <%= @album.created_at.strftime("%Y年%m月%d日") %>
     </p>
@@ -29,7 +29,7 @@
       <h2 class="text-xl font-bold text-gray-800 mb-2">旅のルート</h2>
       
       <%# Stimulusコントローラーを呼び出す %>
-      <div style="height: 500px; width: 100%; border-radius: 0.5rem;"
+      <div style="height: 400px; width: 100%; border-radius: 0.5rem;"
           data-controller="map"
           data-map-api-key-value="<%= ENV['GOOGLE_MAPS_API_KEY'] %>"
           data-map-spots-value="<%= map_data.to_json %>">
@@ -45,16 +45,19 @@
         <% @album_spots.each do |spot| %>
 
           <div class="spot mb-8 border-b pb-4">
+            <h3 class="text-lg font-bold mb-3 text-gray-800"> <%= spot.spot_name %> </h3>
 
             <%# 緯度と経度がないときだけ表示する %>
             <% if spot.latitude.blank? && spot.longitude.blank? %>
               <p class="text-sm text-gray-500 mb-2"> 位置情報がありません </p>
             <% end %>
 
-            <div class="flex flex-wrap gap-4">
+            <%# ★変更点: 常に2列(grid-cols-2)で表示 %>
+            <div class="grid grid-cols-2 gap-3">
               <% spot.photos.each do |photo| %>
                 <div class="flex flex-col">
-                  <%= image_tag photo.image, class: "rounded shadow-sm object-cover", style: "width: 200px; height: 150px;" %>
+                  <%# 画像サイズ固定をやめ、親枠に合わせて伸縮(w-full) %>
+                  <%= image_tag photo.image, class: "rounded shadow-sm object-cover w-full h-32" %>
                   <p class="text-xs text-gray-500 mt-1"> <%= photo.taken_at&.strftime("%H:%M") %> </p>
                 </div>
               <% end %>
@@ -75,12 +78,12 @@
   </div>
 
   <div class="flex items-center justify-between border-t pt-6">
-    <%= link_to "一覧に戻る", albums_path, class: "text-gray-600 hover:text-gray-900 underline" %>
+    <%= link_to "一覧に戻る", albums_path, class: "text-gray-600 hover:text-gray-900 underline text-sm" %>
 
     <% if current_user.id == @album.user_id %>
-        <div class="space-x-2">
-            <%= link_to "編集する", edit_album_path(@album), class: "bg-[#ff8737] text-white px-4 py-2 rounded hover:opacity-80" %>
-            <%= link_to "削除する", album_path(@album), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300" %>
+        <div class="space-x-2 flex">
+            <%= link_to "編集する", edit_album_path(@album), class: "bg-[#ff8737] text-white px-3 py-2 text-sm rounded hover:opacity-80" %>
+            <%= link_to "削除する", album_path(@album), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "bg-gray-200 text-gray-700 px-3 py-2 text-sm rounded hover:bg-gray-300" %>
         </div>
     <% end %>
   </div>
