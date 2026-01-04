@@ -56,6 +56,12 @@ class AlbumsController < ApplicationController
   end
 
   def show
+    # 撮影時間順に並べ替える
+    @album_spots = @album.album_spots.includes(:photos).sort_by do |spot|
+      # スポットの写真を撮影日順に並べたときの、一番古い日時を取得
+      # 日付がない場合は、現在時刻として一番後ろに回す
+      spot.photos.min_by(&:taken_at)&.taken_at || Time.current
+    end
   end
 
   def edit
