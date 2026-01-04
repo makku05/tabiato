@@ -1,0 +1,14 @@
+<div class="w-full h-[80vh] flex flex-col justify-center items-center text-center bg-gray-50">
+  
+  <h1 class="text-6xl font-bold mb-8 text-gray-800 tracking-wider">Tabiato</h1>
+  <p class="mb-12 text-xl text-gray-600">あなたの旅の思い出を、地図に残そう。</p>
+
+  <div class="space-x-6">
+    <% if user_signed_in? %>
+      <%# ログイン中 %>
+      <%= link_to 'アルバム一覧', albums_path, class: "bg-blue-600 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-blue-700 transition duration-300" %>
+      <%= link_to '作成する', new_album_path, class: "bg-green-600 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-green-700 transition duration-300" %>
+    <% end %>
+  </div>
+
+</div>

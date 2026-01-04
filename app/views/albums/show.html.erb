@@ -10,7 +10,7 @@
   <%# マップ用のデータを作成 %>
   <% 
     map_data = []
-    @album.album_spots.each.with_index(1) do |spot, index|
+    @album_spots.each.with_index(1) do |spot, index|
       if spot.latitude.present? && spot.longitude.present? && spot.photos.present?
         map_data << {
           id: spot.id,
@@ -41,9 +41,9 @@
 
   <div class="mb-6">
     <%# アルバムにスポットがあるか %>
-    <% if @album.album_spots.present? %>
+    <% if @album_spots.present? %>
         <%# 画像の一覧を表示 %>
-        <% @album.album_spots.each do |spot| %>
+        <% @album_spots.each do |spot| %>
 
           <div class="spot">
             <h3> <%= spot.spot_name %> </h3>
