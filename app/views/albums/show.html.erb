@@ -7,6 +7,38 @@
     </p>
   </div>
 
+  <%# マップ用のデータを作成 %>
+  <% 
+    map_data = []
+    @album.album_spots.each.with_index(1) do |spot, index|
+      if spot.latitude.present? && spot.longitude.present? && spot.photos.present?
+        map_data << {
+          id: spot.id,
+          name: spot.spot_name,
+          lat: spot.latitude,
+          lng: spot.longitude,
+          image_url: url_for(spot.photos.first.image),
+          number: index.to_s
+        }
+      end
+    end
+  %>
+
+  <% if map_data.present? %>
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-gray-800 mb-2">旅のルート</h2>
+      
+      <%# Stimulusコントローラーを呼び出す %>
+      <div style="height: 400px; width: 100%; border-radius: 0.5rem;"
+          data-controller="map"
+          data-map-api-key-value="<%= ENV['GOOGLE_MAPS_API_KEY'] %>"
+          data-map-spots-value="<%= map_data.to_json %>">
+      </div>
+    </div>
+  <% end %>
+  <%# ----------------------------- %>
+
+
   <div class="mb-6">
     <%# アルバムにスポットがあるか %>
     <% if @album.album_spots.present? %>
@@ -16,9 +48,9 @@
           <div class="spot">
             <h3> <%= spot.spot_name %> </h3>
 
-            <%# 緯度と経度が両方あるときだけ表示する %>
-            <% if spot.latitude.present? && spot.longitude.present? %>
-              <p> 緯度: <%= spot.latitude %> / 経度: <%= spot.longitude %> </p>
+            <%# 緯度と経度がないときだけ表示する %>
+            <% if spot.latitude.blank? && spot.longitude.blank? %>
+              <p> 位置情報がありません </p>
             <% end %>
 
             <% spot.photos.each do |photo| %>
