@@ -11,7 +11,7 @@
         <%# 非公開なら背景グレー %>
         <div class="rounded-lg shadow p-4 border relative flex flex-col <%= album.unpublish? ? 'bg-gray-100' : 'bg-white' %>">
           
-          <%# 非公開の文字入れ %>
+          <%# コントローラーで自分の投稿か判定、かつ非公開で文字入れ %>
           <% if album.unpublish? %>
             <span class="absolute top-2 right-2 z-10 bg-gray-500 text-white text-xs px-2 py-1 rounded">非公開</span>
           <% end %>
