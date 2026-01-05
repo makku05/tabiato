@@ -45,7 +45,6 @@
         <% @album_spots.each do |spot| %>
 
           <div class="spot mb-8 border-b pb-4">
-            <h3 class="text-lg font-bold mb-3 text-gray-800"> <%= spot.spot_name %> </h3>
 
             <%# 緯度と経度がないときだけ表示する %>
             <% if spot.latitude.blank? && spot.longitude.blank? %>
