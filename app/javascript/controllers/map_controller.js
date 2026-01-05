@@ -60,10 +60,10 @@ export default class extends Controller {
 
       const contentString = `
         <div style="text-align: center; width: 150px;">
-          <p style="font-weight: bold; margin-bottom: 5px; color: black;">${spot.name}</p>
           <img src="${spot.image_url}" style="width: 100%; height: auto; border-radius: 4px;">
         </div>
       `
+      // <p style="font-weight: bold; margin-bottom: 5px; color: black;">${spot.name}</p>
 
       marker.addListener("click", () => {
         infoWindow.setContent(contentString)
